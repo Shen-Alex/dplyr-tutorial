@@ -1,4 +1,4 @@
-## Tutorials for the dplyr package in R
+## A clone from Tutorials for the dplyr package in R
 
 I've created two video tutorials covering Hadley Wickham's excellent [dplyr](https://github.com/hadley/dplyr) package. The first tutorial introduces all of the basic functionality of dplyr 0.2. The second tutorial covers the new functionality in dplyr 0.3 and 0.4.
 
