@@ -1,6 +1,8 @@
 ---
 title: 'Going deeper with dplyr: New features in 0.3 and 0.4'
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Introduction

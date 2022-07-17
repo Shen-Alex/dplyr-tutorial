@@ -1,6 +1,8 @@
 ---
 title: "Introduction to dplyr for Faster Data Manipulation in R"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 Note: There is a 40-minute [video tutorial](https://www.youtube.com/watch?v=jWjqLW-u3hc) on YouTube that walks through this document in detail.
@@ -43,7 +45,7 @@ head(hflights)
 
 ```{r}
 # convert to local data frame
-flights <- tbl_df(hflights)
+flights <- as_tibble(hflights)
 
 # printing only shows 10 rows and as many columns as can fit on your screen
 flights
@@ -305,49 +307,6 @@ str(flights)
 # dplyr approach: better formatting, and adapts to your screen width
 glimpse(flights)
 ```
-
-
-## Connecting to Databases
-
-* dplyr can connect to a database as if the data was loaded into a data frame
-* Use the same syntax for local data frames and databases
-* Only generates SELECT statements
-* Currently supports SQLite, PostgreSQL/Redshift, MySQL/MariaDB, BigQuery, MonetDB
-* Example below is based upon an SQLite database containing the hflights data
-    * Instructions for creating this database are in the [databases vignette](http://cran.r-project.org/web/packages/dplyr/vignettes/databases.html)
-
-```{r}
-# connect to an SQLite database containing the hflights data
-my_db <- src_sqlite("my_db.sqlite3")
-
-# connect to the "hflights" table in that database
-flights_tbl <- tbl(my_db, "hflights")
-
-# example query with our data frame
-flights %>%
-    select(UniqueCarrier, DepDelay) %>%
-    arrange(desc(DepDelay))
-
-# identical query using the database
-flights_tbl %>%
-    select(UniqueCarrier, DepDelay) %>%
-    arrange(desc(DepDelay))
-```
-
-* You can write the SQL commands yourself
-* dplyr can tell you the SQL it plans to run and the query execution plan
-
-```{r}
-# send SQL commands to the database
-tbl(my_db, sql("SELECT * FROM hflights LIMIT 100"))
-
-# ask dplyr for the SQL commands
-flights_tbl %>%
-    select(UniqueCarrier, DepDelay) %>%
-    arrange(desc(DepDelay)) %>%
-    explain()
-```
-
 
 ## Resources
 
